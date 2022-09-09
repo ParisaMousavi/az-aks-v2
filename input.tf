@@ -27,6 +27,10 @@ variable "private_cluster_enabled" {
   type = bool
 }
 
+variable "pod_subnet_id" {
+  type = string
+}
+
 variable "additional_tags" {
   default = {}
   type    = map(string)
