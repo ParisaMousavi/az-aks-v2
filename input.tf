@@ -43,5 +43,6 @@ variable "default_node_pool" {
     max_pods            = number
     os_sku              = string
     type                = string
+    vm_size             = string
   })
 }
