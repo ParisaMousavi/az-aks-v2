@@ -27,11 +27,21 @@ variable "private_cluster_enabled" {
   type = bool
 }
 
-variable "vnet_subnet_id" {
-  type = string
-}
-
 variable "additional_tags" {
   default = {}
   type    = map(string)
+}
+
+variable "default_node_pool" {
+  type = object({
+    name                = string
+    vnet_subnet_id      = string
+    node_count          = number
+    min_count           = number
+    max_count           = number
+    enable_auto_scaling = bool
+    max_pods            = number
+    os_sku              = string
+    type                = string
+  })
 }
