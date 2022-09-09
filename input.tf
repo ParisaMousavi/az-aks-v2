@@ -19,11 +19,15 @@ variable "kubernetes_version" {
 }
 
 variable "node_resource_group" {
-  type = string
+  type    = string
   default = null
 }
 
+variable "private_cluster_enabled" {
+  type = bool
+}
+
 variable "additional_tags" {
-  default     = {}
-  type        = map(string)
+  default = {}
+  type    = map(string)
 }
