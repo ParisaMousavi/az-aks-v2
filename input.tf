@@ -14,6 +14,15 @@ variable "dns_prefix" {
   type = string
 }
 
+variable "kubernetes_version" {
+  type = string
+}
+
+variable "node_resource_group" {
+  type = string
+  default = null
+}
+
 variable "additional_tags" {
   default     = {}
   type        = map(string)

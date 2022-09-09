@@ -1,9 +1,12 @@
 resource "azurerm_kubernetes_cluster" "this" {
-  name                = var.name
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  dns_prefix          = var.dns_prefix
-
+  name                    = var.name
+  location                = var.location
+  resource_group_name     = var.resource_group_name
+  dns_prefix              = var.dns_prefix
+  kubernetes_version      = var.kubernetes_version
+  node_resource_group     = var.node_resource_group
+  private_cluster_enabled = true
+  sku_tier                = "Free"
   default_node_pool {
     name       = "default"
     node_count = 1
