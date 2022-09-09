@@ -27,7 +27,7 @@ variable "private_cluster_enabled" {
   type = bool
 }
 
-variable "pod_subnet_id" {
+variable "vnet_subnet_id" {
   type = string
 }
 
