@@ -7,7 +7,17 @@ resource "azurerm_kubernetes_cluster" "this" {
   node_resource_group     = var.node_resource_group
   private_cluster_enabled = var.private_cluster_enabled
   sku_tier                = "Free"
-  default_node_pool       = var.default_node_pool
+  default_node_pool {
+    enable_auto_scaling = var.default_node_pool.enable_auto_scaling
+    max_count           = var.default_node_pool.max_count
+    max_pods            = var.default_node_pool.max_pods
+    min_count           = var.default_node_pool.min_count
+    name                = var.default_node_pool.name
+    node_count          = var.default_node_pool.node_count
+    os_sku              = var.default_node_pool.os_sku
+    type                = var.default_node_pool.type
+    vnet_subnet_id      = var.default_node_pool.vnet_subnet_id
+  }
   identity {
     type = "SystemAssigned"
   }
