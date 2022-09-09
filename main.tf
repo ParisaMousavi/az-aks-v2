@@ -20,7 +20,8 @@ resource "azurerm_kubernetes_cluster" "this" {
     vm_size             = var.default_node_pool.vm_size
   }
   identity {
-    type = "SystemAssigned"
+    type         = "UserAssigned"
+    identity_ids = var.identity_ids
   }
   tags = merge(
     var.additional_tags,

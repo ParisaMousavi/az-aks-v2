@@ -27,6 +27,10 @@ variable "private_cluster_enabled" {
   type = bool
 }
 
+variable "identity_ids" {
+  type = list(string)
+}
+
 variable "additional_tags" {
   default = {}
   type    = map(string)
