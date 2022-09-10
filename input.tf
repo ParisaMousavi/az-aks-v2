@@ -35,6 +35,11 @@ variable "additional_tags" {
   type    = map(string)
 }
 
+variable "sku_tier" {
+  type    = string
+  default = "Free"
+}
+
 variable "default_node_pool" {
   type = object({
     name                = string
@@ -48,4 +53,17 @@ variable "default_node_pool" {
     type                = string
     vm_size             = string
   })
+}
+
+variable "network_profile" {
+  type = object({
+    network_plugin     = string
+    network_policy     = string
+    docker_bridge_cidr = string
+    service_cidr       = string
+    dns_service_ip     = string
+    load_balancer_sku  = string
+    outbound_type      = string
+  })
+
 }

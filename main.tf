@@ -6,7 +6,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   kubernetes_version      = var.kubernetes_version
   node_resource_group     = var.node_resource_group
   private_cluster_enabled = var.private_cluster_enabled
-  sku_tier                = "Free"
+  sku_tier                = var.sku_tier
   default_node_pool {
     enable_auto_scaling = var.default_node_pool.enable_auto_scaling
     max_count           = var.default_node_pool.max_count
@@ -24,13 +24,13 @@ resource "azurerm_kubernetes_cluster" "this" {
     identity_ids = var.identity_ids
   }
   network_profile {
-    network_plugin     = "azure"
-    network_policy     = "azure"
-    docker_bridge_cidr = "10.50.0.1/18"
-    service_cidr       = "10.50.64.0/18"
-    dns_service_ip     = "10.50.64.10"
-    load_balancer_sku  = "standard"
-    outbound_type      = "loadBalancer"
+    network_plugin     = var.network_profile.network_plugin
+    network_policy     = var.network_profile.network_policy
+    docker_bridge_cidr = var.network_profile.docker_bridge_cidr
+    service_cidr       = var.network_profile.service_cidr
+    dns_service_ip     = var.network_profile.dns_service_ip
+    load_balancer_sku  = var.network_profile.load_balancer_sku
+    outbound_type      = var.network_profile.outbound_type
   }  
   tags = merge(
     var.additional_tags,
