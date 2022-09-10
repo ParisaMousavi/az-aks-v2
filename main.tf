@@ -23,6 +23,15 @@ resource "azurerm_kubernetes_cluster" "this" {
     type         = "UserAssigned"
     identity_ids = var.identity_ids
   }
+  network_profile {
+    network_plugin     = "azure"
+    network_policy     = "azure"
+    docker_bridge_cidr = "10.50.0.1/18"
+    service_cidr       = "10.50.64.0/18"
+    dns_service_ip     = "10.50.64.10"
+    load_balancer_sku  = "Standard"
+    outbound_type      = "userDefinedRouting"
+  }  
   tags = merge(
     var.additional_tags,
     {

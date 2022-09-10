@@ -10,17 +10,16 @@ variable "resource_group_name" {
   type = string
 }
 
+variable "node_resource_group" {
+  type = string
+}
+
 variable "dns_prefix" {
   type = string
 }
 
 variable "kubernetes_version" {
   type = string
-}
-
-variable "node_resource_group" {
-  type    = string
-  default = null
 }
 
 variable "private_cluster_enabled" {
