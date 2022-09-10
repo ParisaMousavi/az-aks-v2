@@ -1,12 +1,13 @@
 resource "azurerm_kubernetes_cluster" "this" {
-  name                    = var.name
-  location                = var.location
-  resource_group_name     = var.resource_group_name
-  dns_prefix              = var.dns_prefix
-  kubernetes_version      = var.kubernetes_version
-  node_resource_group     = var.node_resource_group
-  private_cluster_enabled = var.private_cluster_enabled
-  sku_tier                = var.sku_tier
+  name                             = var.name
+  location                         = var.location
+  resource_group_name              = var.resource_group_name
+  dns_prefix                       = var.dns_prefix
+  kubernetes_version               = var.kubernetes_version
+  node_resource_group              = var.node_resource_group
+  private_cluster_enabled          = var.private_cluster_enabled
+  sku_tier                         = var.sku_tier
+  http_application_routing_enabled = true
   default_node_pool {
     enable_auto_scaling = var.default_node_pool.enable_auto_scaling
     max_count           = var.default_node_pool.max_count
@@ -31,7 +32,7 @@ resource "azurerm_kubernetes_cluster" "this" {
     dns_service_ip     = var.network_profile.dns_service_ip
     load_balancer_sku  = var.network_profile.load_balancer_sku
     outbound_type      = var.network_profile.outbound_type
-  }  
+  }
   tags = merge(
     var.additional_tags,
     {
