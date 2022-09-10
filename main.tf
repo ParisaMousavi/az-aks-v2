@@ -29,7 +29,7 @@ resource "azurerm_kubernetes_cluster" "this" {
     docker_bridge_cidr = "10.50.0.1/18"
     service_cidr       = "10.50.64.0/18"
     dns_service_ip     = "10.50.64.10"
-    load_balancer_sku  = "Standard"
+    load_balancer_sku  = "standard"
     outbound_type      = "userDefinedRouting"
   }  
   tags = merge(
