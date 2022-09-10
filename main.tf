@@ -30,7 +30,7 @@ resource "azurerm_kubernetes_cluster" "this" {
     service_cidr       = "10.50.64.0/18"
     dns_service_ip     = "10.50.64.10"
     load_balancer_sku  = "standard"
-    outbound_type      = "userDefinedRouting"
+    outbound_type      = "loadBalancer"
   }  
   tags = merge(
     var.additional_tags,
