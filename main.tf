@@ -8,8 +8,11 @@ resource "azurerm_kubernetes_cluster" "this" {
   private_cluster_enabled          = var.private_cluster_enabled
   sku_tier                         = var.sku_tier
   http_application_routing_enabled = true
-  oms_agent {
-    log_analytics_workspace_id = var.log_analytics_workspace_id
+  dynamic "oms_agent" {
+    count = var.log_analytics_workspace_id != null ? 1 : 0
+    content {
+      log_analytics_workspace_id = var.log_analytics_workspace_id
+    }
   }
   default_node_pool {
     enable_auto_scaling = var.default_node_pool.enable_auto_scaling
