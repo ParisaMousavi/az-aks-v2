@@ -9,7 +9,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   sku_tier                         = var.sku_tier
   http_application_routing_enabled = true
   dynamic "oms_agent" {
-    count = var.log_analytics_workspace_id != null ? 1 : 0
+    for_each = var.log_analytics_workspace_id != null ? [1] : []
     content {
       log_analytics_workspace_id = var.log_analytics_workspace_id
     }
