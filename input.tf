@@ -73,3 +73,7 @@ variable "log_analytics_workspace_id" {
   type = string
   default = null
 }
+
+variable "admin_group_object_ids" {
+  type = list(string)
+}

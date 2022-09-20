@@ -39,6 +39,12 @@ resource "azurerm_kubernetes_cluster" "this" {
     load_balancer_sku  = var.network_profile.load_balancer_sku
     outbound_type      = var.network_profile.outbound_type
   }
+  azure_active_directory_role_based_access_control {
+    managed                = true
+    admin_group_object_ids = var.admin_group_object_ids
+    azure_rbac_enabled     = true
+
+  }
   tags = merge(
     var.additional_tags,
     {
