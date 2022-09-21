@@ -39,15 +39,24 @@ resource "azurerm_kubernetes_cluster" "this" {
     load_balancer_sku  = var.network_profile.load_balancer_sku
     outbound_type      = var.network_profile.outbound_type
   }
-  # azure_active_directory_role_based_access_control {
-  #   managed                = true
-  #   admin_group_object_ids = var.admin_group_object_ids
-  #   azure_rbac_enabled     = true
-  # }
+
+  # Example : https://aravinda-kumar.com/docs/Azure/aks-security-part-1/index.html
+  azure_active_directory_role_based_access_control {
+    managed                = true
+    admin_group_object_ids = var.admin_group_object_ids
+    azure_rbac_enabled     = true
+  }
   tags = merge(
     var.additional_tags,
     {
       created-by = "iac-tf"
     },
   )
+}
+
+resource "azurerm_role_assignment" "admin" {
+  for_each = toset(var.admin_group_object_ids)
+  scope = azurerm_kubernetes_cluster.this.id
+  role_definition_name = "Azure Kubernetes Service Cluster User Role"
+  principal_id = each.value
 }
