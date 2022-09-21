@@ -54,9 +54,16 @@ resource "azurerm_kubernetes_cluster" "this" {
   )
 }
 
-resource "azurerm_role_assignment" "admin" {
+resource "azurerm_role_assignment" "aks_user_role" {
   for_each = toset(var.admin_group_object_ids)
   scope = azurerm_kubernetes_cluster.this.id
   role_definition_name = "Azure Kubernetes Service Cluster User Role"
+  principal_id = each.value
+}
+
+resource "azurerm_role_assignment" "aks_admin_role" {
+  for_each = toset(var.admin_group_object_ids)
+  scope = azurerm_kubernetes_cluster.this.id
+  role_definition_name = "Azure Kubernetes Service Cluster Admin Role"
   principal_id = each.value
 }
