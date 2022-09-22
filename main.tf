@@ -42,10 +42,10 @@ resource "azurerm_kubernetes_cluster" "this" {
 
   # Example : https://aravinda-kumar.com/docs/Azure/aks-security-part-1/index.html
   azure_active_directory_role_based_access_control {
-    managed                = length(var.admin_group_object_ids) == 0 ? false : true
-    admin_group_object_ids = var.admin_group_object_ids
-    azure_rbac_enabled     = length(var.admin_group_object_ids) == 0 ? false : true
-    tenant_id              = length(var.admin_group_object_ids) == 0 ? null : var.tenant_id
+    managed                = var.aad_config.managed
+    admin_group_object_ids = var.aad_config.admin_group_object_ids
+    azure_rbac_enabled     = var.aad_config.azure_rbac_enabled
+    tenant_id              = var.aad_config.tenant_id
   }
   tags = merge(
     var.additional_tags,

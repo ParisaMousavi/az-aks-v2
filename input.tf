@@ -83,3 +83,13 @@ variable "tenant_id" {
   type    = string
   default = null
 }
+
+
+variable "aad_config" {
+  type = object({
+    managed                = bool
+    admin_group_object_ids = list(string)
+    azure_rbac_enabled     = bool
+    tenant_id              = string
+  })
+}
