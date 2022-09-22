@@ -42,9 +42,10 @@ resource "azurerm_kubernetes_cluster" "this" {
 
   # Example : https://aravinda-kumar.com/docs/Azure/aks-security-part-1/index.html
   azure_active_directory_role_based_access_control {
-    managed                = var.admin_group_object_ids == [] ? false : true 
+    managed                = var.admin_group_object_ids == null ? false : true
     admin_group_object_ids = var.admin_group_object_ids
-    azure_rbac_enabled     = var.admin_group_object_ids == [] ? false : true 
+    azure_rbac_enabled     = var.admin_group_object_ids == null ? false : true
+    tenant_id              = var.admin_group_object_ids == null ? null : var.tenant_id
   }
   tags = merge(
     var.additional_tags,
@@ -55,15 +56,15 @@ resource "azurerm_kubernetes_cluster" "this" {
 }
 
 resource "azurerm_role_assignment" "aks_user_role" {
-  for_each = toset(var.admin_group_object_ids)
-  scope = azurerm_kubernetes_cluster.this.id
+  for_each             = toset(var.admin_group_object_ids)
+  scope                = azurerm_kubernetes_cluster.this.id
   role_definition_name = "Azure Kubernetes Service Cluster User Role"
-  principal_id = each.value
+  principal_id         = each.value
 }
 
 resource "azurerm_role_assignment" "aks_admin_role" {
-  for_each = toset(var.admin_group_object_ids)
-  scope = azurerm_kubernetes_cluster.this.id
+  for_each             = toset(var.admin_group_object_ids)
+  scope                = azurerm_kubernetes_cluster.this.id
   role_definition_name = "Azure Kubernetes Service Cluster Admin Role"
-  principal_id = each.value
+  principal_id         = each.value
 }

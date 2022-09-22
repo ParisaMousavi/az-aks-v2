@@ -70,10 +70,16 @@ variable "network_profile" {
 
 
 variable "log_analytics_workspace_id" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "admin_group_object_ids" {
-  type = list(string)
+  type    = list(string)
+  default = null
+}
+
+variable "tenant_id" {
+  type    = string
+  default = null
 }
