@@ -74,17 +74,6 @@ variable "log_analytics_workspace_id" {
   default = null
 }
 
-variable "admin_group_object_ids" {
-  type    = list(string)
-  default = null
-}
-
-variable "tenant_id" {
-  type    = string
-  default = null
-}
-
-
 variable "aad_config" {
   type = object({
     managed                = bool
