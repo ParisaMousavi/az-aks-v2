@@ -10,3 +10,7 @@ output "id" {
 output "name" {
   value = azurerm_kubernetes_cluster.this.name
 }
+
+output "all" {
+  value = azurerm_kubernetes_cluster.this
+}
