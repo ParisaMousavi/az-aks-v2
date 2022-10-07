@@ -11,6 +11,6 @@ output "name" {
   value = azurerm_kubernetes_cluster.this.name
 }
 
-output "all" {
-  value = azurerm_kubernetes_cluster.this
+output "http_application_routing_zone_name" {
+  value = azurerm_kubernetes_cluster.this.http_application_routing_zone_name
 }
