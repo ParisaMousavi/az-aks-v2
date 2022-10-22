@@ -82,3 +82,20 @@ variable "aad_config" {
     tenant_id              = string
   })
 }
+
+
+variable "http_application_routing_enabled" {
+  type        = bool
+  default     = false
+  description = "By set to true a system assigned managed identity will be created."
+}
+
+#------------------------------------------------
+# more about oidc
+# https://learn.microsoft.com/en-us/azure/aks/learn/tutorial-kubernetes-workload-identity
+# https://learn.microsoft.com/en-us/azure/aks/cluster-configuration#oidc-issuer
+#------------------------------------------------
+variable "oidc_issuer_enabled" {
+  type    = string
+  default = false
+}

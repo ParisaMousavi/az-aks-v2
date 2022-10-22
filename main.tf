@@ -7,7 +7,8 @@ resource "azurerm_kubernetes_cluster" "this" {
   node_resource_group              = var.node_resource_group
   private_cluster_enabled          = var.private_cluster_enabled
   sku_tier                         = var.sku_tier
-  http_application_routing_enabled = true
+  oidc_issuer_enabled              = var.oidc_issuer_enabled
+  http_application_routing_enabled = var.http_application_routing_enabled
   dynamic "oms_agent" {
     for_each = var.log_analytics_workspace_id != null ? [1] : []
     content {
@@ -26,6 +27,10 @@ resource "azurerm_kubernetes_cluster" "this" {
     vnet_subnet_id      = var.default_node_pool.vnet_subnet_id
     vm_size             = var.default_node_pool.vm_size
   }
+  # Reference: https://learn.microsoft.com/en-us/azure/aks/use-managed-identity#bring-your-own-control-plane-managed-identity
+  # A service principal or managed identity is needed 
+  # to dynamically create and manage other Azure resources such 
+  # as an Azure load balancer or container registry (ACR)
   identity {
     type         = "UserAssigned"
     identity_ids = var.identity_ids
