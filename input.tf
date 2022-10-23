@@ -99,3 +99,14 @@ variable "oidc_issuer_enabled" {
   type    = string
   default = false
 }
+
+#------------------------------------------------
+# Reference: https://learn.microsoft.com/en-us/azure/aks/use-managed-identity
+#------------------------------------------------
+variable "kubelet_identity" {
+  type = object({
+    client_id                 = string
+    object_id                 = string
+    user_assigned_identity_id = string
+  })
+}

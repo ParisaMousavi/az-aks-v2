@@ -35,6 +35,11 @@ resource "azurerm_kubernetes_cluster" "this" {
     type         = "UserAssigned"
     identity_ids = var.identity_ids
   }
+  kubelet_identity {
+    client_id                 = var.kubelet_identity.client_id
+    object_id                 = var.kubelet_identity.object_id
+    user_assigned_identity_id = var.kubelet_identity.user_assigned_identity_id
+  }
   network_profile {
     network_plugin     = var.network_profile.network_plugin
     network_policy     = var.network_profile.network_policy
