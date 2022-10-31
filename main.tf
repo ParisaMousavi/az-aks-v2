@@ -36,7 +36,7 @@ resource "azurerm_kubernetes_cluster" "this" {
     identity_ids = var.identity_ids
   }
   dynamic "kubelet_identity" {
-    for_each = var.kubelet_identity.client_id != null ? [1] : []
+    for_each = var.kubelet_identity.client_id != null && length(var.identity_ids) >= 1 ? [1] : []
     content {
       client_id                 = var.kubelet_identity.client_id
       object_id                 = var.kubelet_identity.object_id
