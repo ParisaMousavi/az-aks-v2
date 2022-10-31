@@ -32,7 +32,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   # to dynamically create and manage other Azure resources such 
   # as an Azure load balancer or container registry (ACR)
   identity {
-    type         = "UserAssigned"
+    type         = length(var.identity_ids) == 0 ? "SystemAssigned" : "UserAssigned"
     identity_ids = var.identity_ids
   }
   dynamic "kubelet_identity" {
