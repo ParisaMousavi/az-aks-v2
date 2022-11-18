@@ -110,3 +110,10 @@ variable "kubelet_identity" {
     user_assigned_identity_id = string
   })
 }
+
+variable "linux_profile" {
+  type = object({
+    admin_username = string
+    key_data       = string
+  })
+}

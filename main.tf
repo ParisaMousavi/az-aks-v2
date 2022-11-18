@@ -52,13 +52,18 @@ resource "azurerm_kubernetes_cluster" "this" {
     load_balancer_sku  = var.network_profile.load_balancer_sku
     outbound_type      = var.network_profile.outbound_type
   }
-
   # Example : https://aravinda-kumar.com/docs/Azure/aks-security-part-1/index.html
   azure_active_directory_role_based_access_control {
     managed                = var.aad_config.managed
     admin_group_object_ids = var.aad_config.admin_group_object_ids
     azure_rbac_enabled     = var.aad_config.azure_rbac_enabled
     tenant_id              = var.aad_config.tenant_id
+  }
+  linux_profile {
+    admin_username = var.admin_username
+    ssh_key {
+      key_data = var.key_data
+    }
   }
   tags = merge(
     var.additional_tags,
