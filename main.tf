@@ -60,9 +60,9 @@ resource "azurerm_kubernetes_cluster" "this" {
     tenant_id              = var.aad_config.tenant_id
   }
   linux_profile {
-    admin_username = var.admin_username
+    admin_username = var.linux_profile.admin_username
     ssh_key {
-      key_data = var.key_data
+      key_data = replace(var.linux_profile.key_data, "\n", "")
     }
   }
   tags = merge(
