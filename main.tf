@@ -156,7 +156,38 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
       enabled = true
     }
   }
+  log {
+    category = "cloud-controller-manager"
+    enabled  = false
 
+    retention_policy {
+      enabled = true
+    }
+  }
+  log {
+    category = "csi-azuredisk-controller"
+    enabled  = true
+
+    retention_policy {
+      enabled = true
+    }
+  }
+  log {
+    category = "csi-azurefile-controller"
+    enabled  = true
+
+    retention_policy {
+      enabled = true
+    }
+  }
+  log {
+    category = "csi-snapshot-controller"
+    enabled  = true
+
+    retention_policy {
+      enabled = true
+    }
+  }
   metric {
     category = "AllMetrics"
     enabled  = true
