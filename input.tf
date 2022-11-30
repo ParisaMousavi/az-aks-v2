@@ -117,3 +117,10 @@ variable "linux_profile" {
     key_data       = string
   })
 }
+
+
+variable "log_analytics_workspace_id" {
+  type        = string
+  description = "This is used for diagnostic settings"
+  default     = null
+}

@@ -86,3 +86,83 @@ resource "azurerm_kubernetes_cluster" "this" {
 #   role_definition_name = "Azure Kubernetes Service Cluster Admin Role"
 #   principal_id         = each.value
 # }
+
+
+# https://docs.microsoft.com/de-de/azure/azure-monitor/essentials/resource-manager-diagnostic-settings
+resource "azurerm_monitor_diagnostic_setting" "this" {
+  count                      = var.log_analytics_workspace_id != null ? 1 : 0
+  name                       = "logs2workspace"
+  target_resource_id         = azurerm_kubernetes_cluster.this.id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+  log {
+    category = "kube-apiserver"
+    enabled  = true
+
+    retention_policy {
+      enabled = true
+    }
+  }
+
+  log {
+    category = "kube-audit"
+    enabled  = true
+
+    retention_policy {
+      enabled = true
+    }
+  }
+
+  log {
+    category = "kube-audit-admin"
+    enabled  = true
+
+    retention_policy {
+      enabled = true
+    }
+  }
+
+  log {
+    category = "kube-controller-manager"
+    enabled  = true
+
+    retention_policy {
+      enabled = true
+    }
+  }
+
+  log {
+    category = "kube-scheduler"
+    enabled  = true
+
+    retention_policy {
+      enabled = true
+    }
+  }
+
+  log {
+    category = "cluster-autoscaler"
+    enabled  = true
+
+    retention_policy {
+      enabled = true
+    }
+  }
+
+  log {
+    category = "guard"
+    enabled  = true
+
+    retention_policy {
+      enabled = true
+    }
+  }
+
+  metric {
+    category = "AllMetrics"
+    enabled  = true
+
+    retention_policy {
+      enabled = true
+    }
+  }
+}
