@@ -10,9 +10,9 @@ resource "azurerm_kubernetes_cluster" "this" {
   oidc_issuer_enabled              = var.oidc_issuer_enabled
   http_application_routing_enabled = var.http_application_routing_enabled
   dynamic "oms_agent" {
-    for_each = var.log_analytics_workspace_id != null ? [1] : []
+    for_each = var.logging.log_analytics_workspace_id != null && var.logging.enable_oms_agent == true ? [1] : []
     content {
-      log_analytics_workspace_id = var.log_analytics_workspace_id
+      log_analytics_workspace_id = var.logging.log_analytics_workspace_id
     }
   }
   default_node_pool {
@@ -90,10 +90,10 @@ resource "azurerm_kubernetes_cluster" "this" {
 
 # https://docs.microsoft.com/de-de/azure/azure-monitor/essentials/resource-manager-diagnostic-settings
 resource "azurerm_monitor_diagnostic_setting" "this" {
-  count                      = var.log_analytics_workspace_id != null ? 1 : 0
+  count                      = var.logging.log_analytics_workspace_id != null && var.logging.enabele_diagnostic_setting == true ? 1 : 0
   name                       = "logs2workspace"
   target_resource_id         = azurerm_kubernetes_cluster.this.id
-  log_analytics_workspace_id = var.log_analytics_workspace_id
+  log_analytics_workspace_id = var.logging.log_analytics_workspace_id
   log {
     category = "kube-apiserver"
     enabled  = true

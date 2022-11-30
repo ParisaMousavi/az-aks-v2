@@ -68,10 +68,17 @@ variable "network_profile" {
 
 }
 
-
-variable "log_analytics_workspace_id" {
-  type    = string
-  default = null
+variable "logging" {
+  type = object({
+    log_analytics_workspace_id = string
+    enable_oms_agent           = bool
+    enabele_diagnostic_setting = bool
+  })
+  default = {
+    enabele_diagnostic_setting = false
+    enable_oms_agent           = false
+    log_analytics_workspace_id = null
+  }
 }
 
 variable "aad_config" {
@@ -82,7 +89,6 @@ variable "aad_config" {
     tenant_id              = string
   })
 }
-
 
 variable "http_application_routing_enabled" {
   type        = bool
@@ -118,9 +124,3 @@ variable "linux_profile" {
   })
 }
 
-
-variable "log_analytics_workspace_id" {
-  type        = string
-  description = "This is used for diagnostic settings"
-  default     = null
-}
