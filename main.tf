@@ -158,7 +158,7 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
   }
   log {
     category = "cloud-controller-manager"
-    enabled  = false
+    enabled  = true
 
     retention_policy {
       enabled = true
