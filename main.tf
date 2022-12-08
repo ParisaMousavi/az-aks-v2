@@ -8,7 +8,6 @@ resource "azurerm_kubernetes_cluster" "this" {
   private_cluster_enabled          = var.private_cluster_enabled
   sku_tier                         = var.sku_tier
   oidc_issuer_enabled              = var.oidc_issuer_enabled
-  scale_down_mode                  = var.default_node_pool.scale_down_mode
   http_application_routing_enabled = var.http_application_routing_enabled
   dynamic "oms_agent" {
     for_each = var.logging.log_analytics_workspace_id != null && var.logging.enable_oms_agent == true ? [1] : []
@@ -27,6 +26,7 @@ resource "azurerm_kubernetes_cluster" "this" {
     type                = var.default_node_pool.type
     vnet_subnet_id      = var.default_node_pool.vnet_subnet_id
     vm_size             = var.default_node_pool.vm_size
+    # scale_down_mode     = var.default_node_pool.scale_down_mode
   }
   # Reference: https://learn.microsoft.com/en-us/azure/aks/use-managed-identity#bring-your-own-control-plane-managed-identity
   # A service principal or managed identity is needed 
