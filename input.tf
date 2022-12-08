@@ -52,6 +52,7 @@ variable "default_node_pool" {
     os_sku              = string
     type                = string
     vm_size             = string
+    scale_down_mode     = string
   })
 }
 
