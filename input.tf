@@ -110,3 +110,14 @@ variable "kubelet_identity" {
     user_assigned_identity_id = string
   })
 }
+
+variable "storage_profile" {
+  type = object({
+    blob_driver_enabled         = bool
+    disk_driver_enabled         = bool
+    disk_driver_version         = string
+    file_driver_enabled         = bool
+    snapshot_controller_enabled = bool
+
+  })
+}

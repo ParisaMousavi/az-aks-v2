@@ -60,6 +60,15 @@ resource "azurerm_kubernetes_cluster" "this" {
     azure_rbac_enabled     = var.aad_config.azure_rbac_enabled
     tenant_id              = var.aad_config.tenant_id
   }
+
+  storage_profile {
+    blob_driver_enabled = var.storage_profile.blob_driver_enabled
+    disk_driver_enabled = var.storage_profile.disk_driver_enabled
+    disk_driver_version = var.storage_profile.disk_driver_version
+    file_driver_enabled = var.storage_profile.file_driver_enabled
+    snapshot_controller_enabled = var.storage_profile.snapshot_controller_enabled
+  }
+
   tags = merge(
     var.additional_tags,
     {
