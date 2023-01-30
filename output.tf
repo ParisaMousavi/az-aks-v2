@@ -3,7 +3,7 @@ output "principal_id" {
 }
 
 output "id" {
-  value = azurerm_kubernetes_cluster.this.id 
+  value = azurerm_kubernetes_cluster.this.id
 }
 
 

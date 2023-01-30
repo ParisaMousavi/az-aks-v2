@@ -52,6 +52,7 @@ variable "default_node_pool" {
     os_sku              = string
     type                = string
     vm_size             = string
+    scale_down_mode     = string
   })
 }
 
@@ -68,10 +69,17 @@ variable "network_profile" {
 
 }
 
-
-variable "log_analytics_workspace_id" {
-  type    = string
-  default = null
+variable "logging" {
+  type = object({
+    log_analytics_workspace_id = string
+    enable_oms_agent           = bool
+    enabele_diagnostic_setting = bool
+  })
+  default = {
+    enabele_diagnostic_setting = false
+    enable_oms_agent           = false
+    log_analytics_workspace_id = null
+  }
 }
 
 variable "aad_config" {
@@ -82,7 +90,6 @@ variable "aad_config" {
     tenant_id              = string
   })
 }
-
 
 variable "http_application_routing_enabled" {
   type        = bool
@@ -108,6 +115,13 @@ variable "kubelet_identity" {
     client_id                 = string
     object_id                 = string
     user_assigned_identity_id = string
+  })
+}
+
+variable "linux_profile" {
+  type = object({
+    admin_username = string
+    key_data       = string
   })
 }
 
