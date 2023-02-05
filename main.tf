@@ -79,6 +79,13 @@ resource "azurerm_kubernetes_cluster" "this" {
       key_data = replace(var.linux_profile.key_data, "\n", "")
     }
   }
+  storage_profile {
+    blob_driver_enabled         = var.storage_profile.blob_driver_enabled
+    disk_driver_enabled         = var.storage_profile.disk_driver_enabled
+    disk_driver_version         = var.storage_profile.disk_driver_version
+    file_driver_enabled         = var.storage_profile.file_driver_enabled
+    snapshot_controller_enabled = var.storage_profile.snapshot_controller_enabled
+  }
   tags = merge(
     var.additional_tags,
     {
@@ -108,96 +115,74 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
   name                       = "logs2workspace"
   target_resource_id         = azurerm_kubernetes_cluster.this.id
   log_analytics_workspace_id = var.logging.log_analytics_workspace_id
-  log {
+  enabled_log {
     category = "kube-apiserver"
-    enabled  = true
-
     retention_policy {
       enabled = true
     }
   }
 
-  log {
+  enabled_log {
     category = "kube-audit"
-    enabled  = true
-
     retention_policy {
       enabled = true
     }
   }
 
-  log {
+  enabled_log {
     category = "kube-audit-admin"
-    enabled  = true
-
     retention_policy {
       enabled = true
     }
   }
 
-  log {
+  enabled_log {
     category = "kube-controller-manager"
-    enabled  = true
-
     retention_policy {
       enabled = true
     }
   }
 
-  log {
+  enabled_log {
     category = "kube-scheduler"
-    enabled  = true
-
     retention_policy {
       enabled = true
     }
   }
 
-  log {
+  enabled_log {
     category = "cluster-autoscaler"
-    enabled  = true
-
     retention_policy {
       enabled = true
     }
   }
 
-  log {
+  enabled_log {
     category = "guard"
-    enabled  = true
-
     retention_policy {
       enabled = true
     }
   }
-  log {
+  enabled_log {
     category = "cloud-controller-manager"
-    enabled  = true
-
     retention_policy {
       enabled = true
     }
   }
-  log {
+  enabled_log {
     category = "csi-azuredisk-controller"
-    enabled  = true
-
     retention_policy {
       enabled = true
     }
   }
-  log {
+  enabled_log {
     category = "csi-azurefile-controller"
-    enabled  = true
-
     retention_policy {
       enabled = true
     }
   }
-  log {
+  enabled_log {
     category = "csi-snapshot-controller"
-    enabled  = true
-
     retention_policy {
       enabled = true
     }

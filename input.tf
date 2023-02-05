@@ -125,6 +125,16 @@ variable "linux_profile" {
   })
 }
 
+variable "storage_profile" {
+  type = object({
+    blob_driver_enabled         = bool
+    disk_driver_enabled         = bool
+    disk_driver_version         = string
+    file_driver_enabled         = bool
+    snapshot_controller_enabled = bool
+  })
+}
+
 variable "node_labels" {
   default = {}
   type    = map(string)
