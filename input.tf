@@ -125,3 +125,7 @@ variable "linux_profile" {
   })
 }
 
+variable "node_labels" {
+  default = {}
+  type    = map(string)
+}

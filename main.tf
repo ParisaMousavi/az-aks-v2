@@ -15,6 +15,10 @@ resource "azurerm_kubernetes_cluster" "this" {
       log_analytics_workspace_id = var.logging.log_analytics_workspace_id
     }
   }
+
+  # Reference page : https://learn.microsoft.com/en-us/azure/aks/use-labels
+
+
   default_node_pool {
     enable_auto_scaling = var.default_node_pool.enable_auto_scaling
     max_count           = var.default_node_pool.max_count
@@ -27,6 +31,15 @@ resource "azurerm_kubernetes_cluster" "this" {
     vnet_subnet_id      = var.default_node_pool.vnet_subnet_id
     vm_size             = var.default_node_pool.vm_size
     # scale_down_mode     = var.default_node_pool.scale_down_mode
+
+    # Reference page : https://learn.microsoft.com/en-us/azure/aks/use-labels
+    node_labels = merge(
+      var.node_labels,
+      {
+        created-by = "iac-tf",
+        type       = "system-pool"
+      },
+    )
   }
   # Reference: https://learn.microsoft.com/en-us/azure/aks/use-managed-identity#bring-your-own-control-plane-managed-identity
   # A service principal or managed identity is needed 
