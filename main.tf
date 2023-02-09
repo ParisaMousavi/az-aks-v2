@@ -1,13 +1,16 @@
 resource "azurerm_kubernetes_cluster" "this" {
-  name                             = var.name
-  location                         = var.location
-  resource_group_name              = var.resource_group_name
-  dns_prefix                       = var.dns_prefix
-  kubernetes_version               = var.kubernetes_version
-  node_resource_group              = var.node_resource_group
-  private_cluster_enabled          = var.private_cluster_enabled
-  sku_tier                         = var.sku_tier
-  oidc_issuer_enabled              = var.oidc_issuer_enabled
+  name                    = var.name
+  location                = var.location
+  resource_group_name     = var.resource_group_name
+  dns_prefix              = var.dns_prefix
+  kubernetes_version      = var.kubernetes_version
+  node_resource_group     = var.node_resource_group
+  private_cluster_enabled = var.private_cluster_enabled
+  sku_tier                = var.sku_tier
+
+  # https://learn.microsoft.com/en-us/azure/aks/cluster-configuration
+  oidc_issuer_enabled = var.oidc_issuer_enabled
+
   http_application_routing_enabled = var.http_application_routing_enabled
   dynamic "oms_agent" {
     for_each = var.logging.log_analytics_workspace_id != null && var.logging.enable_oms_agent == true ? [1] : []
@@ -15,9 +18,6 @@ resource "azurerm_kubernetes_cluster" "this" {
       log_analytics_workspace_id = var.logging.log_analytics_workspace_id
     }
   }
-
-  # Reference page : https://learn.microsoft.com/en-us/azure/aks/use-labels
-
 
   default_node_pool {
     enable_auto_scaling = var.default_node_pool.enable_auto_scaling
