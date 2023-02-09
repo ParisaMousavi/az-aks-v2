@@ -1,16 +1,13 @@
 resource "azurerm_kubernetes_cluster" "this" {
-  name                    = var.name
-  location                = var.location
-  resource_group_name     = var.resource_group_name
-  dns_prefix              = var.dns_prefix
-  kubernetes_version      = var.kubernetes_version
-  node_resource_group     = var.node_resource_group
-  private_cluster_enabled = var.private_cluster_enabled
-  sku_tier                = var.sku_tier
-
-  # https://learn.microsoft.com/en-us/azure/aks/cluster-configuration
-  oidc_issuer_enabled = var.oidc_issuer_enabled
-
+  name                             = var.name
+  location                         = var.location
+  resource_group_name              = var.resource_group_name
+  dns_prefix                       = var.dns_prefix
+  kubernetes_version               = var.kubernetes_version
+  node_resource_group              = var.node_resource_group
+  private_cluster_enabled          = var.private_cluster_enabled
+  sku_tier                         = var.sku_tier
+  oidc_issuer_enabled              = var.oidc_issuer_enabled # https://learn.microsoft.com/en-us/azure/aks/cluster-configuration
   http_application_routing_enabled = var.http_application_routing_enabled
   dynamic "oms_agent" {
     for_each = var.logging.log_analytics_workspace_id != null && var.logging.enable_oms_agent == true ? [1] : []
@@ -31,15 +28,13 @@ resource "azurerm_kubernetes_cluster" "this" {
     vnet_subnet_id      = var.default_node_pool.vnet_subnet_id
     vm_size             = var.default_node_pool.vm_size
     # scale_down_mode     = var.default_node_pool.scale_down_mode
-
-    # Reference page : https://learn.microsoft.com/en-us/azure/aks/use-labels
     node_labels = merge(
       var.node_labels,
       {
         created-by = "iac-tf",
         type       = "system-pool"
       },
-    )
+    ) # Reference page : https://learn.microsoft.com/en-us/azure/aks/use-labels
   }
   # Reference: https://learn.microsoft.com/en-us/azure/aks/use-managed-identity#bring-your-own-control-plane-managed-identity
   # A service principal or managed identity is needed 
@@ -66,13 +61,12 @@ resource "azurerm_kubernetes_cluster" "this" {
     load_balancer_sku  = var.network_profile.load_balancer_sku
     outbound_type      = var.network_profile.outbound_type
   }
-  # Example : https://aravinda-kumar.com/docs/Azure/aks-security-part-1/index.html
   azure_active_directory_role_based_access_control {
     managed                = var.aad_config.managed
     admin_group_object_ids = var.aad_config.admin_group_object_ids
     azure_rbac_enabled     = var.aad_config.azure_rbac_enabled
     tenant_id              = var.aad_config.tenant_id
-  }
+  } # Example : https://aravinda-kumar.com/docs/Azure/aks-security-part-1/index.html
   linux_profile {
     admin_username = var.linux_profile.admin_username
     ssh_key {
