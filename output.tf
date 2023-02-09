@@ -14,3 +14,7 @@ output "name" {
 output "http_application_routing_zone_name" {
   value = azurerm_kubernetes_cluster.this.http_application_routing_zone_name
 }
+
+output "oidc_issuer_url" {
+  value = azurerm_kubernetes_cluster.this.oidc_issuer_url
+}
