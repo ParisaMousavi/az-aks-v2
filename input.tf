@@ -53,6 +53,7 @@ variable "default_node_pool" {
     type                = string
     vm_size             = string
     scale_down_mode     = string
+    zones               = optional(list(string))
   })
 }
 
@@ -138,10 +139,4 @@ variable "storage_profile" {
 variable "node_labels" {
   default = {}
   type    = map(string)
-}
-
-
-variable "zones" {
-  type    = list(string)
-  default = null
 }
