@@ -142,6 +142,6 @@ variable "node_labels" {
 
 
 variable "zones" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
