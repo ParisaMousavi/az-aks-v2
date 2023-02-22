@@ -26,7 +26,7 @@ resource "azurerm_kubernetes_cluster" "this" {
     os_sku              = var.default_node_pool.os_sku
     type                = var.default_node_pool.type
     vnet_subnet_id      = var.default_node_pool.vnet_subnet_id
-    zones               = var.zones
+    zones               = ["1", "2"]
     vm_size             = var.default_node_pool.vm_size
     # scale_down_mode     = var.default_node_pool.scale_down_mode
     node_labels = merge(
