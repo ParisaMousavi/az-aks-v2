@@ -139,3 +139,9 @@ variable "node_labels" {
   default = {}
   type    = map(string)
 }
+
+
+variable "zones" {
+  type = string
+  default = null
+}
