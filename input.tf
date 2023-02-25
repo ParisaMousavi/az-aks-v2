@@ -144,7 +144,6 @@ variable "node_labels" {
 
 variable "key_vault_secrets_provider" {
   type = object({
-    secret_identity          = optional(string)
     secret_rotation_enabled  = optional(bool, false)
     secret_rotation_interval = optional(string)
   })
