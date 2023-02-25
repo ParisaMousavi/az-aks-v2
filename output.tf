@@ -18,3 +18,7 @@ output "http_application_routing_zone_name" {
 output "oidc_issuer_url" {
   value = azurerm_kubernetes_cluster.this.oidc_issuer_url
 }
+
+output "key_vault_secrets_provider" {
+  value = azurerm_kubernetes_cluster.this.key_vault_secrets_provider
+}
