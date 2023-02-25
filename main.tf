@@ -81,6 +81,10 @@ resource "azurerm_kubernetes_cluster" "this" {
     file_driver_enabled         = var.storage_profile.file_driver_enabled
     snapshot_controller_enabled = var.storage_profile.snapshot_controller_enabled
   }
+  key_vault_secrets_provider {
+    secret_rotation_enabled  = true
+    secret_rotation_interval = "2m"
+  }
   tags = merge(
     var.additional_tags,
     {
