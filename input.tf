@@ -104,7 +104,12 @@ variable "http_application_routing_enabled" {
 # https://learn.microsoft.com/en-us/azure/aks/cluster-configuration#oidc-issuer
 #------------------------------------------------
 variable "oidc_issuer_enabled" {
-  type    = string
+  type    = bool
+  default = false
+}
+
+variable "workload_identity_enabled" {
+  type    = bool
   default = false
 }
 

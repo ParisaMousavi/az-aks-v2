@@ -8,6 +8,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   private_cluster_enabled          = var.private_cluster_enabled
   sku_tier                         = var.sku_tier
   oidc_issuer_enabled              = var.oidc_issuer_enabled # https://learn.microsoft.com/en-us/azure/aks/cluster-configuration
+  workload_identity_enabled        = var.workload_identity_enabled
   http_application_routing_enabled = var.http_application_routing_enabled
   dynamic "oms_agent" {
     for_each = var.logging.log_analytics_workspace_id != null && var.logging.enable_oms_agent == true ? [1] : []
