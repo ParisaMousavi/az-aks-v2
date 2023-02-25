@@ -81,9 +81,13 @@ resource "azurerm_kubernetes_cluster" "this" {
     file_driver_enabled         = var.storage_profile.file_driver_enabled
     snapshot_controller_enabled = var.storage_profile.snapshot_controller_enabled
   }
-  key_vault_secrets_provider {
-    secret_rotation_enabled  = true
-    secret_rotation_interval = "2m"
+  dynamic "key_vault_secrets_provider" {
+    for_each = var.key_vault_secrets_provider.secret_rotation_enabled == false ? [] : [1]
+    content {
+      secret_identity          = var.key_vault_secrets_provider.secret_identity
+      secret_rotation_enabled  = var.key_vault_secrets_provider.secret_rotation_enabled
+      secret_rotation_interval = var.key_vault_secrets_provider.secret_rotation_interval
+    }
   }
   tags = merge(
     var.additional_tags,
