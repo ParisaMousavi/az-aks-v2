@@ -24,9 +24,10 @@ output "key_vault_secrets_provider" {
 }
 
 output "oms_agent_identity" {
-  value = {
-    client_id                 = azurerm_kubernetes_cluster.this.oms_agent.oms_agent_identity.client_id
-    object_id                 = azurerm_kubernetes_cluster.this.oms_agent.oms_agent_identity.object_id
-    user_assigned_identity_id = azurerm_kubernetes_cluster.this.oms_agent.oms_agent_identity.user_assigned_identity_id
-  }
+  value = azurerm_kubernetes_cluster.this.oms_agent
+  # value = {
+  #   client_id                 = azurerm_kubernetes_cluster.this.oms_agent.oms_agent_identity.client_id
+  #   object_id                 = azurerm_kubernetes_cluster.this.oms_agent.oms_agent_identity.object_id
+  #   user_assigned_identity_id = azurerm_kubernetes_cluster.this.oms_agent.oms_agent_identity.user_assigned_identity_id
+  # }
 }
