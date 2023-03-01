@@ -27,7 +27,7 @@ output "oms_agent_identity" {
   value = var.logging.log_analytics_workspace_id != null && var.logging.enable_oms_agent == true ? {
     client_id                 = azurerm_kubernetes_cluster.this.oms_agent[0].oms_agent_identity[0].client_id
     object_id                 = azurerm_kubernetes_cluster.this.oms_agent[0].oms_agent_identity[0].object_id
-    user_assigned_identity_id = azurerm_kubernetes_cluster.this.oms_agent[o].oms_agent_identity[0].user_assigned_identity_id
+    user_assigned_identity_id = azurerm_kubernetes_cluster.this.oms_agent[0].oms_agent_identity[0].user_assigned_identity_id
     } : {
     client_id                 = null
     object_id                 = null
